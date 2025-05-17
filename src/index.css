@@ -1,0 +1,183 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+
+    --primary: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 0%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 40%;
+
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 0%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 0%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 0%;
+    --sidebar-primary: 0 0% 0%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 0%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 0 0% 0%;
+  }
+
+  .dark {
+    --background: 0 0% 10%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 10%;
+
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 0 0% 80%;
+    
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 0 0% 10%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 0 0% 80%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-bold;
+  }
+  p, a, span, div {
+    @apply font-sans;
+  }
+  .author-link {
+    @apply font-semibold text-luChronicles-black hover:underline transition-all;
+  }
+}
+
+/* Custom styles for news articles */
+.article-content h1 {
+  @apply text-3xl font-serif font-bold mt-6 mb-4;
+}
+.article-content h2 {
+  @apply text-2xl font-serif font-bold mt-5 mb-3;
+}
+.article-content h3 {
+  @apply text-xl font-serif font-bold mt-4 mb-2;
+}
+.article-content p {
+  @apply my-4 leading-relaxed;
+}
+.article-content blockquote {
+  @apply pl-4 border-l-4 border-luChronicles-black italic my-4;
+}
+.article-content ul {
+  @apply list-disc pl-5 my-4;
+}
+.article-content ol {
+  @apply list-decimal pl-5 my-4;
+}
+
+/* Fix for sticky header and sidebar layout */
+.site-layout {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "header header"
+    "sidebar main";
+}
+
+.site-header {
+  grid-area: header;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.site-sidebar {
+  grid-area: sidebar;
+  height: calc(100vh - var(--header-height));
+  position: sticky;
+  top: var(--header-height);
+  overflow-y: auto;
+}
+
+.site-main {
+  grid-area: main;
+  overflow-y: auto;
+}
+
+:root {
+  --header-height: 80px;
+}
+
+@media (max-width: 768px) {
+  .site-layout {
+    grid-template-areas:
+      "header header"
+      "main main";
+  }
+  
+  .site-sidebar {
+    position: fixed;
+    left: -100%;
+    transition: left 0.3s ease;
+    width: 280px;
+    z-index: 40;
+  }
+  
+  .site-sidebar.open {
+    left: 0;
+  }
+}
