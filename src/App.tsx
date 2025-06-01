@@ -1,10 +1,10 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
+import SupabaseTest from "./components/SupabaseTest";
 
 // Layout components
 import Header from "@/components/layout/Header";
@@ -42,6 +42,9 @@ const App = () => {
             <Header toggleSidebar={toggleSidebar} />
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
             <main className="site-main">
+              <div className="container mx-auto p-4">
+                <SupabaseTest />
+              </div>
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/article/:slug" element={<Article />} />
