@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -29,6 +28,7 @@ const categories: CategoryLink[] = [
   { name: 'Podcasts', path: '/category/podcasts' },
   { name: 'Crosswords', path: '/category/crosswords' },
   { name: 'Donate', path: '/donate' },
+  { name: 'Contact', path: '/contact' },
 ];
 
 interface SidebarProps {

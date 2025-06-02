@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -22,6 +21,7 @@ const Footer: React.FC = () => {
               <li><Link to="/team" className="hover:underline">Our Team</Link></li>
               <li><Link to="/category/faculty" className="hover:underline">Faculty</Link></li>
               <li><Link to="/donate" className="hover:underline">Donate</Link></li>
+              <li><Link to="/contact" className="hover:underline">Contact</Link></li>
             </ul>
           </div>
           
