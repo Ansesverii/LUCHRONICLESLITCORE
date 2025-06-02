@@ -1,47 +1,58 @@
+// src/components/ArticlesList.jsx
 import { useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient'
 
-export default function SupabaseTest() {
-  const [testData, setTestData] = useState(null)
-  const [error, setError] = useState(null)
+export default function ArticlesList() {
+  const [articles, setArticles] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    async function testConnection() {
-      try {
-        // Try to fetch the current user to test the connection
-        const { data, error } = await supabase.auth.getUser()
-        
-        if (error) {
-          throw error
-        }
-        
-        setTestData(data)
-      } catch (err) {
-        setError(err.message)
-      }
-    }
-
-    testConnection()
+    fetchArticles()
   }, [])
 
-  if (error) {
-    return (
-      <div className="p-4 bg-red-100 text-red-700 rounded">
-        <h2 className="font-bold">Connection Error:</h2>
-        <p>{error}</p>
-      </div>
-    )
+  async function fetchArticles() {
+    try {
+      setLoading(true)
+      const { data, error } = await supabase
+        .from('articles')
+        .select('*')
+        .eq('status', 'published')
+        .order('created_at', { ascending: false })
+
+      if (error) throw error
+      setArticles(data || [])
+    } catch (error) {
+      console.error('Error fetching articles:', error)
+    } finally {
+      setLoading(false)
+    }
   }
 
+  if (loading) return <div>Loading articles...</div>
+
   return (
-    <div className="p-4 bg-green-100 text-green-700 rounded">
-      <h2 className="font-bold">Supabase Connection Status:</h2>
-      <p>Connected successfully!</p>
-      {testData && (
-        <pre className="mt-2 p-2 bg-white rounded">
-          {JSON.stringify(testData, null, 2)}
-        </pre>
+    <div className="articles-container">
+      <h2>Latest Articles</h2>
+      {articles.length === 0 ? (
+        <p>No articles found</p>
+      ) : (
+        <div className="articles-grid">
+          {articles.map(article => (
+            <div key={article.id} className="article-card">
+              {article.image_url && (
+                <img 
+                  src={article.image_url} 
+                  alt={article.title} 
+                  className="article-image"
+                />
+              )}
+              <h3>{article.title}</h3>
+              <p>{article.content.substring(0, 150)}...</p>
+              <small>Published: {new Date(article.created_at).toLocaleDateString()}</small>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   )
-} 
+}
