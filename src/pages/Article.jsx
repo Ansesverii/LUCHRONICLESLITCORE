@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getArticleBySlug, getArticlesByCategory } from '@/data';
@@ -7,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 
 const Article = () => {
-  const { slug } = useParams<{ slug: string }>();
+  const { slug } = useParams();
   const article = getArticleBySlug(slug || '');
   const relatedArticles = article 
     ? getArticlesByCategory(article.category.toLowerCase().replace(' ', '-')).filter(a => a.id !== article.id).slice(0, 3)
@@ -143,4 +142,4 @@ const Article = () => {
   );
 };
 
-export default Article;
+export default Article; 
