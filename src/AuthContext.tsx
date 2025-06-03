@@ -22,6 +22,11 @@ export const AuthProvider = ({ children }: any) => {
         setLoading(false);
       }
     };
+    // If the file is src/supabase.ts
+import supabase from './supabase'
+
+// If the file is src/supabaseClient.ts
+import supabase from './supabaseClient'
 
     getInitialSession();
 
