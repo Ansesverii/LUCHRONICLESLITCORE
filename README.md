@@ -1,56 +1,95 @@
-# LU Chronicles – Cursor Project for Lucknow University 🏛️
+# LUWEB – Modern Web Platform for Lucknow University 🏛️
 
-A modern web platform built to centralize and share campus updates, news articles, and faculty/student information for **Lucknow University**. This project aims to enhance digital communication across the LU community.
-
----
-
-## 🎯 Project Goal
-
-LU Chronicles is designed as a digital noticeboard and interactive portal where:
-
-- Students can **read articles**, **view faculty info**, and **explore the team**
-- Visitors can **donate** to support student initiatives
-- Admins can **add, update, and manage** all content via a secure dashboard
+A cutting-edge web application built with modern technologies to provide a seamless digital experience for Lucknow University. This project serves as a comprehensive platform for managing university content and interactions.
 
 ---
 
-## 🧠 How It Works
+## 🎯 Project Overview
 
-Think of the website like a digital library and admin room:
+LUWEB is designed as a modern, responsive web platform that provides:
 
-- 📰 **Articles Page**: Displays curated stories, announcements, and updates  
-- 👥 **Team Page**: Showcases contributors and organizers  
-- 🎓 **Faculty Page**: Lists department-wise faculty information  
-- 💰 **Donate Page**: Accepts contributions via UPI/QR  
-- 🔐 **Admin Panel**: A secure system where authorized admins manage all content (built into the same site)
-
----
-
-## 💡 Under the Hood
-
-This project is built using:
-
-- **React (TypeScript)** – Frontend framework  
-- **Vite** – Lightning-fast build tool  
-- **Tailwind CSS** – Custom styling  
-- **shadcn/ui + Radix UI** – Prebuilt, accessible components  
-- **React Router DOM** – Page navigation  
-- **React Hook Form + Zod** – Form validation  
-- **TanStack Query (React Query)** – Smart state and server data handling  
+- 📱 **Responsive Design**: Optimized for all devices
+- 🔐 **Secure Authentication**: Protected admin and user areas
+- 📰 **Content Management**: Easy article and content publishing
+- 👥 **User Management**: Comprehensive user administration
+- 🎨 **Modern UI**: Built with shadcn/ui and Tailwind CSS
 
 ---
 
-## 🛠️ Local Development Setup
+## 🛠️ Tech Stack
+
+This project leverages modern web technologies:
+
+- **React + TypeScript** – Type-safe frontend development
+- **Vite** – Next-generation frontend tooling
+- **Tailwind CSS** – Utility-first CSS framework
+- **shadcn/ui** – Beautiful, accessible components
+- **React Router** – Client-side routing
+- **React Query** – Data fetching and state management
+- **Supabase** – Backend and authentication
+
+---
+
+## 🚀 Getting Started
 
 ```sh
-# Step 1: Clone this repo
-git clone <YOUR_GIT_URL>
+# Clone the repository
+git clone https://github.com/Ansesverii/LUWEB.git
 
-# Step 2: Go into the folder
-cd <YOUR_PROJECT_NAME>
+# Navigate to project directory
+cd LUWEB
 
-# Step 3: Install dependencies
+# Install dependencies
 npm install
 
-# Step 4: Start the dev server
+# Start development server
 npm run dev
+```
+
+---
+
+## 📦 Project Structure
+
+```
+LUWEB/
+├── src/
+│   ├── components/    # Reusable UI components
+│   ├── pages/        # Page components
+│   ├── lib/          # Utility functions and configurations
+│   └── styles/       # Global styles and Tailwind config
+├── public/           # Static assets
+└── ...config files
+```
+
+---
+
+## 🔧 Development
+
+- Built with TypeScript for better type safety
+- Uses ESLint and Prettier for code quality
+- Implements modern React patterns and hooks
+- Follows component-based architecture
+
+---
+
+## 📝 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 📞 Contact
+
+For any queries or support, please reach out through GitHub issues or contact the maintainers.
