@@ -1,14 +1,40 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables. Please check your .env file.')
+// Environment variables with validation
+const getEnvVar = (key: string): string => {
+  const value = import.meta.env[key]
+  if (!value) {
+    throw new Error(
+      `Missing environment variable: ${key}. ` +
+      'Please check your .env file and ensure it contains the required variables.'
+    )
+  }
+  return value
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey,{auth:{persistSession:true,autoRefreshToken:true,}});
-export default supabase;
+// Get Supabase credentials with validation
+const supabaseUrl = getEnvVar('VITE_SUPABASE_URL')
+const supabaseAnonKey = getEnvVar('VITE_SUPABASE_ANON_KEY')
+
+// Validate URL format
+if (!supabaseUrl.startsWith('https://')) {
+  throw new Error('Invalid Supabase URL format. URL must start with https://')
+}
+
+// Create Supabase client with type safety
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: true
+  },
+  db: {
+    schema: 'public'
+  }
+})
+
+// Export a default instance
+export default supabase
 
 // Type definitions for your database tables
 export type Database = {

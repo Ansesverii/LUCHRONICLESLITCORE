@@ -1,6 +1,6 @@
 // src/components/ArticleForm.jsx
 import { useState } from 'react'
-import { supabase } from '../supabaseClient'
+import { supabase } from '../lib/supabase'
 
 export default function ArticleForm({ article, onSuccess }) {
   const [title, setTitle] = useState(article?.title || '')

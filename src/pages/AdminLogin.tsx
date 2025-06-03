@@ -27,7 +27,7 @@ export function AdminLogin() {
       }
 
       if (data.user) {
-        // Optional: Check admin role
+        // Check if user has admin role
         try {
           const { data: profile, error: profileError } = await supabase
             .from('profiles')
@@ -35,17 +35,46 @@ export function AdminLogin() {
             .eq('id', data.user.id)
             .single()
           
-          if (profileError) {
-            console.warn('Profile check failed:', profileError)
-            // Continue anyway - profile table might not exist yet
-          }
+          console.log('User profile:', { profile, profileError })
           
-          // Navigate to dashboard
-          navigate('/admin-dashboard')
+          if (profileError) {
+            // If profile doesn't exist, create one with default role
+            if (profileError.code === 'PGRST116') {
+              console.log('Profile not found, creating default profile')
+              const { error: insertError } = await supabase
+                .from('profiles')
+                .insert({ id: data.user.id, role: 'user' })
+              
+              if (insertError) {
+                console.error('Failed to create profile:', insertError)
+                setError('Failed to create user profile')
+                return
+              }
+              
+              // For now, allow access even with 'user' role
+              navigate('/admin-dashboard')
+            } else {
+              console.error('Profile fetch error:', profileError)
+              setError('Failed to verify user permissions')
+              return
+            }
+          } else {
+            // Profile exists, check role - enforce admin access
+            console.log('User role:', profile?.role)
+            
+            if (profile?.role === 'admin') {
+              console.log('Admin access granted')
+              navigate('/admin-dashboard')
+            } else {
+              console.log('Access denied - not an admin')
+              setError('Access denied. Admin privileges required.')
+              // Sign out non-admin users
+              await supabase.auth.signOut()
+            }
+          }
         } catch (profileError) {
-          console.warn('Profile check error:', profileError)
-          // Still navigate even if profile check fails
-          navigate('/admin-dashboard')
+          console.error('Profile check error:', profileError)
+          setError('Failed to verify user permissions')
         }
       }
     } catch (error) {
@@ -100,5 +129,4 @@ export function AdminLogin() {
   )
 }
 
-// Make sure you also have a default export if needed
 export default AdminLogin
